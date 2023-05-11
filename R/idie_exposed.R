@@ -199,7 +199,7 @@ idie_exposed<-function(data,
     Qfit.discrete<-Qfit$fitLibrary[[Q]]
     dt[, pihat:=predict(pifit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.A)]), type="response")]
 
-    dt[, gammahat:=predict(gammafit, newdata=dt.full, type="response")]
+    dt[, gammahat:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)]), type="response")]
     dt[, gammahat.a0:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=0], type="response")]
     dt[, gammahat.a1:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=1], type="response")]
 
