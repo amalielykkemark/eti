@@ -176,7 +176,7 @@ idie_exposed<-function(data,
   if (discrete.SL==FALSE){
     dt[, pihat:=predict(pifit, newdata=dt[,.SD,.SDcols=c(cov.A)], onlySL = T)$pred]
 
-    dt[, gammahat:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)]), onlySL = T)$pred]
+    dt[, gammahat:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z,'A')]), onlySL = T)$pred]
     dt[, gammahat.a0:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=0], onlySL = T)$pred]
     dt[, gammahat.a1:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[,A:=1], onlySL = T)$pred]
 
@@ -199,7 +199,7 @@ idie_exposed<-function(data,
     Qfit.discrete<-Qfit$fitLibrary[[Q]]
     dt[, pihat:=predict(pifit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.A)]), type="response")]
 
-    dt[, gammahat:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)]), type="response")]
+    dt[, gammahat:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z,'A')]), type="response")]
     dt[, gammahat.a0:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=0], type="response")]
     dt[, gammahat.a1:=predict(gammafit.discrete, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=1], type="response")]
 
