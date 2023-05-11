@@ -101,7 +101,7 @@
 #'                  SL.lib.A = lib,
 #'                  SL.lib.Z = lib,
 #'                  SL.lib.Y = lib,
-#'                  discrete.SL = FALSE)
+#'                  discrete.SL = TRUE)
 #'
 #'summary(res)
 #'
@@ -156,21 +156,7 @@ idie_exposed<-function(data,
   if (length(unique(dt[,A]))!=2 | length(unique(dt[,Z]))!=2 | length(unique(dt[,Y]))!=2) {
     stop('Exposure, mediator, and outcome must be binary.')
   }
-  #
-  #   if (!is.integer(dt[,A])){
-  #     dt[,A:=as.integer(A)]
-  #     warning(paste('The exposure variable has been converted to integer'))
-  #   }
-  #
-  #   if (!is.integer(dt[,Z])) {
-  #     dt[,Z:=as.integer(Z)]
-  #     warning(paste('The mediator variable has been converted to integer'))
-  #   }
-  #
-  #   if (!is.integer(dt[,Y])) {
-  #     dt[,Y:=as.integer(Y)]
-  #     warning(paste('The outcome variable has been converted to integer'))
-  #   }
+
   pibar <- dt[,mean(A==1)]
   pifit <- SuperLearner::SuperLearner(Y=dt[,A], #dt[,as.numeric(A==1)],
                                       X=dt[,.SD,.SDcols=cov.A],
