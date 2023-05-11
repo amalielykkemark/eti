@@ -174,7 +174,7 @@ idie_exposed<-function(data,
                                     SL.library = SL.lib.Y)
 
   if (discrete.SL==FALSE){
-    dt[, pihat:=predict(pifit, newdata=dt[,.SD,.SDcols=cov.A], onlySL = T)$pred]
+    dt[, pihat:=predict(pifit, newdata=dt[,.SD,.SDcols=c(cov.A)], onlySL = T)$pred]
 
     dt[, gammahat:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)]), onlySL = T)$pred]
     dt[, gammahat.a0:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=0], onlySL = T)$pred]
