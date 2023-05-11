@@ -221,13 +221,13 @@ idie_exposed<-function(data,
   init.est0 <- dt.full[Z==Z.obs, 1/pibar*mean((A == 1)*(psi.0))]
   init.est1 <- tmle.est1 <- dt.full[Z==Z.obs & A == 1, mean(Y)]
 
-  eic0 <- dt.full[Z==Z.obs, ((A==1)/pibar*((Z*gammahat.a0+(1-Z)*(1-gammahat.a0))/
+  dt.full[Z==Z.obs,eic0:= ((A==1)/pibar*((Z*gammahat.a0+(1-Z)*(1-gammahat.a0))/
                                              (Z*gammahat.a1+(1-Z)*(1-gammahat.a1)))*
                                (Y - Qhat.a1) +
                                (A==0)/(1-pihat)*(pihat)/pibar*(Qhat.a1 - psi.0) +
                                (A==1)/pibar*(psi.0 - init.est0))]
 
-  eic1 <- dt.full[Z==Z.obs, ((A==1)/pibar*(Y - init.est1))]
+  dt.full[Z==Z.obs,eic1:= ((A==1)/pibar*(Y - init.est1))]
 
   se0 <- sqrt(mean(dt.full[Z==Z.obs,eic0]^2)/nrow(dt))
   se1 <- sqrt(mean(dt.full[Z==Z.obs,eic1]^2)/nrow(dt))
