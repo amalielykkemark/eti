@@ -116,7 +116,7 @@ res<-idie_exposed(data=d,
                  SL.lib.A = lib,
                  SL.lib.Z = lib,
                  SL.lib.Y = lib,
-                 discrete.SL = FALSE)
+                 discrete.SL = TRUE)
 
 summary(res)
 

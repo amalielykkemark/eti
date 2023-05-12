@@ -2,6 +2,5 @@
 
 S3method(print,idie_exposed)
 S3method(summary,idie_exposed)
+export(gie_exposed)
 export(idie_exposed)
-import(SuperLearner)
-import(data.table)

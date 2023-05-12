@@ -102,7 +102,6 @@
 #'                  SL.lib.Z = lib,
 #'                  SL.lib.Y = lib,
 #'                  discrete.SL = TRUE)
-#'
 #'summary(res)
 #'
 #'
@@ -293,43 +292,7 @@ idie_exposed<-function(data,
 
   dt.full <- copy(dt.full.copy)
 
-  #tmle.est1 <- dt.full[Z==Z.obs & A == 1, mean(Y)]
-
-  solve.eic1 <- abs(dt.full[Z==Z.obs, mean((A==1)/pibar*(Y - tmle.est1))]) # obs overflodig?
-
-  # dt.full <- copy(dt.full.copy)
-  #
-  # for (iter in 1:iterations) {  #-- iterative updating;
-  #
-  #   #-- update Q;
-  #   dt.full[, H.Y:=1/pibar]
-  #   eps.Y <- coef(glm(Y ~ offset(qlogis(Qhat.a1))+H.Y-1, data=dt.full[Z==Z.obs & A==1], family=binomial()))
-  #
-  #   dt.full[, Qhat.a1:=plogis(qlogis(Qhat.a1) + eps.Y/pibar)]
-  #   dt.full[, Qhat.a1.z0:=plogis(qlogis(Qhat.a1.z0) + eps.Y/pibar)]
-  #   dt.full[, Qhat.a1.z1:=plogis(qlogis(Qhat.a1.z1) + eps.Y/pibar)]
-  #
-  #   dt.full[, psi.1:=sum(Qhat.a1*(gammahat.a1*Z+(1-gammahat.a1)*(1-Z))), by="id"]
-  #
-  #   tmle.est1 <- dt.full[Z==Z.obs, (1/pibar)*mean((pihat)*psi.1)]
-  #
-  #   #-- update A;
-  #   dt.full[, H.A:=(psi.1-tmle.est1)/pibar]
-  #   eps.A <- coef(glm(A==1 ~ offset(qlogis(pihat))+H.A-1, data=dt.full[Z==Z.obs], family=binomial()))
-  #   dt.full[, pihat:=plogis(qlogis(pihat) + eps.A*H.A)]
-  #
-  #   #-- updated estimate
-  #   tmle.est1 <- dt.full[Z==Z.obs, (1/pibar)*mean((A)*psi.1)]
-  #
-  #   solve.eic1 <- abs(dt.full[Z==Z.obs, mean((A==1)/pibar*(Y - Qhat.a1) +
-  #                                              (psi.1 - tmle.est1)/pibar*((A==1) - (pihat)) +
-  #                                              (pihat)/pibar*(psi.1-tmle.est1))])
-  #
-  #   if (solve.eic1<=se1/(log(nrow(dt))*sqrt(nrow(dt)))) break
-  #   if(iter==iterations) {
-  #     warning(paste('Efficient influence function for psi1 was not solved in',iterations,'iterations'))
-  #   }
-  # }
+  solve.eic1 <- abs(dt.full[Z==Z.obs, mean((A==1)/pibar*(Y - tmle.est1))]) 
 
   # prepare output
   out<-list()
