@@ -30,24 +30,11 @@ summary.idie_exposed <- function(x,...) {
     print(round(x$distributions['distribution.Z.a1',],4))
     cat('\n')
 
-
-    if (!is.null(x$superlearner.discrete)){
       cat("\nDiscrete super learner")
       cat("\n     Algorithm chosen for modelling the exposure: ", x$superlearner.discrete$A.exposure)
       cat("\n     Algorithm chosen for modelling the intermediate: ", x$superlearner.discrete$Z.intermediate)
       cat("\n     Algorithm chosen for modelling the outcome:", x$superlearner.discrete$Y.outcome,"\n")
-    }
 
-    if (!is.null(x$superlearner.weight)){
-      cat("\nSuper learner weights")
-      cat("\n     Weights for algorithms for the exposure model:\n")
-      print(x$superlearner.weight$A.exposure)
-      cat("\n     Weights for algorithms for the intermediate model:\n")
-      print(x$superlearner.weight$Z.intermediate)
-      cat("\n     Weights for algorithms for the outcome model:\n")
-      print(x$superlearner.weight$Y.outcome)
-
-    }
 
   }
 
