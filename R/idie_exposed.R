@@ -10,26 +10,20 @@
 #'to the observed level among the exposed. Importantly, for this estimator the
 #'exposure, mediator, and outcome must all be binary. The
 #'underlying model for the exposure, mediator, and outcome, which are needed
-#'to estimate any of the parameters, can be modeled using Super learning. Super
-#'learning can be used to produce a weighted combination of candidate algorithms
-#'that optimize the cross-validated loss-function or to select the single best
-#'performing algorithm among the candidate algorithms, also known as the discrete
-#'Super learner. One must define a library of candidate algorithms which should
-#'be considered by the Super learner. If the Super learner library contains only
-#'one algorithm, results will be estimated based on this algorithm alone, and
+#'to estimate any of the parameters, can be modelled using discrete Super learning. 
+#'In this case, Super learning is used to select the single best-performing algorithm in 
+#' the library according to the cross-validated loss-function. One must define a library of 
+#'candidate algorithms which should be considered by the Super learner. If the Super learner 
+#'library contains only one algorithm, results will be estimated based on this algorithm alone, and
 #'thus, not using Super Learning.
 #'
 #'@name idie_exposed
 #'
 #'@author Amalie Lykkemark Moller \email{amlm@@sund.ku.dk} Helene Charlotte Wiese Rytgaard, Thomas Alexander Gerds, and Christian Torp-Pedersen
-#'@usage idie_exposed(data, discrete.SL=TRUE, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
+#'@usage idie_exposed(data, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
 #'cov.A, cov.Z, cov.Y, SL.lib.A=FALSE, SL.lib.Z=FALSE, SL.lib.Y=FALSE, iterations=10)
 #'@param data  A data frame/data table with a binary exposure, a binary
 #'  mediator, a binary outcome, and covariates.
-#'@param discrete.SL  If \code{FALSE} TMLE will use the weighted combination of
-#'  the algorithms in the super learner library that minimizes the loss
-#'  function. Defaults to \code{TRUE}, in which case the discrete super learner
-#'  i used, i.e. the best performing algorithm.
 #'@param exposure.A  Name of the binary exposure.
 #'@param mediator.Z  Name of the binary mediator, which is the
 #'  target of the hypothetical intervention.
@@ -100,14 +94,12 @@
 #'                  cov.Y=c('sex','age','disease'),
 #'                  SL.lib.A = lib,
 #'                  SL.lib.Z = lib,
-#'                  SL.lib.Y = lib,
-#'                  discrete.SL = TRUE)
+#'                  SL.lib.Y = lib)
 #'summary(res)
 #'
 #'
 #'@export
 idie_exposed<-function(data,
-                       discrete.SL=TRUE,
                        exposure.A=NA,
                        mediator.Z=NA,
                        outcome.Y=NA,
@@ -172,24 +164,12 @@ idie_exposed<-function(data,
                                     family = binomial(),
                                     SL.library = SL.lib.Y)
 
-  if (discrete.SL==FALSE){
     dt[, pihat:=predict(pifit, newdata=dt[,.SD,.SDcols=c(cov.A)], onlySL = T)$pred]
 
     dt[, gammahat:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z,'A')]), onlySL = T)$pred]
     dt[, gammahat.a0:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[, A:=0], onlySL = T)$pred]
     dt[, gammahat.a1:=predict(gammafit, newdata=copy(dt[,.SD,.SDcols=c(cov.Z)])[,A:=1], onlySL = T)$pred]
 
-    dt.full <- data.table(rbind(copy(dt)[, Z:=1],
-                                copy(dt)[, Z:=0]),
-                          Z.obs=c(dt[, Z], dt[, Z]))
-
-    dt.full[, Qhat:=predict(Qfit, newdata=dt.full[,.SD,.SDcols=c(cov.Y,'A','Z')], onlySL = T)$pred]
-    dt.full[, Qhat.a1:=predict(Qfit, newdata=copy(dt.full[,.SD,.SDcols=c(cov.Y,'Z')])[,A:=1], onlySL = T)$pred]
-    dt.full[, Qhat.a1.z0:=predict(Qfit, newdata=copy(dt.full[,.SD,.SDcols=c(cov.Y)])[, `:=`(A=1, Z=0)], onlySL = T)$pred]
-    dt.full[, Qhat.a1.z1:=predict(Qfit, newdata=copy(dt.full[,.SD,.SDcols=c(cov.Y)])[, `:=`(A=1, Z=1)], onlySL = T)$pred]
-  }
-
-  if (discrete.SL==TRUE){
     p<-pifit$libraryNames[which.max(pifit$coef)]
     pifit.discrete<-pifit$fitLibrary[[p]]
     g<-gammafit$libraryNames[which.max(gammafit$coef)]
@@ -210,7 +190,7 @@ idie_exposed<-function(data,
     dt.full[, Qhat.a1:=predict(Qfit.discrete, newdata=copy(dt.full)[, A:=1], type="response")]
     dt.full[, Qhat.a1.z0:=predict(Qfit.discrete, newdata=copy(dt.full)[, `:=`(A=1, Z=0)], type="response")]
     dt.full[, Qhat.a1.z1:=predict(Qfit.discrete, newdata=copy(dt.full)[, `:=`(A=1, Z=1)], type="response")]
-  }
+  
 
   # no intervention
   dt.full[, psi.1:=sum(Qhat.a1*(gammahat.a1*Z+(1-gammahat.a1)*(1-Z))), by="id"]
@@ -306,16 +286,11 @@ idie_exposed<-function(data,
   out$superlearner.CVrisk$Z.mediator<-gammafit$cvRisk
   out$superlearner.CVrisk$Y.outcome<-Qfit$cvRisk
   #weights assigned to each algorithm in the super learner library
-  if (discrete.SL==TRUE){
+
     out$superlearner.discrete$A.exposure<-p
     out$superlearner.discrete$Z.mediator<-g
     out$superlearner.discrete$Y.outcome<-Q
-  }
-  if (discrete.SL==FALSE){
-    out$superlearner.weight$A.exposure<-pifit$coef
-    out$superlearner.weight$Z.mediator<-gammafit$coef
-    out$superlearner.weight$Y.outcome<-Qfit$coef
-  }
+  
   out$distributions=rbind(distribution.A1=dt.full[Z==Z.obs & A==1, summary(pihat)],
                           distribution.Z.a1=dt.full[Z==Z.obs & A==1, summary(gammahat.a1)],
                           distribution.Z.a0=dt.full[Z==Z.obs & A==1, summary(gammahat.a0)],
