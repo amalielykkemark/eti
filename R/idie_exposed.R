@@ -19,7 +19,7 @@
 #'
 #'@name idie_exposed
 #'
-#'@author Amalie Lykkemark Moller \email{amlm@@sund.ku.dk} Helene Charlotte Wiese Rytgaard, Thomas Alexander Gerds, and Christian Torp-Pedersen
+#'@author Amalie Lykkemark M{{\O}}ller \email{amlm@@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
 #'@usage idie_exposed(data, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
 #'cov.A, cov.Z, cov.Y, SL.lib.A=FALSE, SL.lib.Z=FALSE, SL.lib.Y=FALSE, iterations=10)
 #'@param data  A data frame/data table with a binary exposure, a binary
@@ -45,10 +45,10 @@
 #'@param iterations  Number of iterations for the updating step in TMLE.
 #'  Defaults to 10.
 #'
-#'@details The structure of the data should be as follows: \item For the binary
-#'exposure (\code{exposure.A}) 1 = exposed and 0 = unexposed. \item For the
+#'@details The structure of the data should be as follows: For the binary
+#'exposure (\code{exposure.A}) 1 = exposed and 0 = unexposed. For the
 #'binary mediator (\code{mediator.Z}) 1 = treatment and 0 = no
-#'treatment. \item For the binary outcome (\code{outcome.Y}) 1 = event and 0 =
+#'treatment. For the binary outcome (\code{outcome.Y}) 1 = event and 0 =
 #'no event.
 #'
 #'@return The function outputs the absolute outcome risk among the exposed had

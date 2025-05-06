@@ -4,17 +4,12 @@
 \alias{idie_exposed}
 \title{Targeted minimum-loss based estimator for the Interventional Disparity Indirect Effect (IDIE) among the exposed}
 \usage{
-idie_exposed(data, discrete.SL=TRUE, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
+idie_exposed(data, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
 cov.A, cov.Z, cov.Y, SL.lib.A=FALSE, SL.lib.Z=FALSE, SL.lib.Y=FALSE, iterations=10)
 }
 \arguments{
 \item{data}{A data frame/data table with a binary exposure, a binary
 mediator, a binary outcome, and covariates.}
-
-\item{discrete.SL}{If \code{FALSE} TMLE will use the weighted combination of
-the algorithms in the super learner library that minimizes the loss
-function. Defaults to \code{TRUE}, in which case the discrete super learner
-i used, i.e. the best performing algorithm.}
 
 \item{exposure.A}{Name of the binary exposure.}
 
@@ -66,20 +61,18 @@ among the exposed when the distribution of the mediator was set
 to the observed level among the exposed. Importantly, for this estimator the
 exposure, mediator, and outcome must all be binary. The
 underlying model for the exposure, mediator, and outcome, which are needed
-to estimate any of the parameters, can be modeled using Super learning. Super
-learning can be used to produce a weighted combination of candidate algorithms
-that optimize the cross-validated loss-function or to select the single best
-performing algorithm among the candidate algorithms, also known as the discrete
-Super learner. One must define a library of candidate algorithms which should
-be considered by the Super learner. If the Super learner library contains only
-one algorithm, results will be estimated based on this algorithm alone, and
+to estimate any of the parameters, can be modelled using discrete Super learning.
+In this case, Super learning is used to select the single best-performing algorithm in
+the library according to the cross-validated loss-function. One must define a library of
+candidate algorithms which should be considered by the Super learner. If the Super learner
+library contains only one algorithm, results will be estimated based on this algorithm alone, and
 thus, not using Super Learning.
 }
 \details{
-The structure of the data should be as follows: \item For the binary
-exposure (\code{exposure.A}) 1 = exposed and 0 = unexposed. \item For the
+The structure of the data should be as follows: For the binary
+exposure (\code{exposure.A}) 1 = exposed and 0 = unexposed. For the
 binary mediator (\code{mediator.Z}) 1 = treatment and 0 = no
-treatment. \item For the binary outcome (\code{outcome.Y}) 1 = event and 0 =
+treatment. For the binary outcome (\code{outcome.Y}) 1 = event and 0 =
 no event.
 }
 \examples{
@@ -115,9 +108,7 @@ res<-idie_exposed(data=d,
                  cov.Y=c('sex','age','disease'),
                  SL.lib.A = lib,
                  SL.lib.Z = lib,
-                 SL.lib.Y = lib,
-                 discrete.SL = TRUE)
-
+                 SL.lib.Y = lib)
 summary(res)
 
 
