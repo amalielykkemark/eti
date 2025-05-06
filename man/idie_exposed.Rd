@@ -114,5 +114,5 @@ summary(res)
 
 }
 \author{
-Amalie Lykkemark M{{/O}}ller \email{amlm@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
+Amalie Lykkemark Møller \email{amlm@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
 }

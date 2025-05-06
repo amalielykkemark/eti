@@ -19,7 +19,7 @@
 #'
 #'@name idie_exposed
 #'
-#'@author Amalie Lykkemark M{{/O}}ller \email{amlm@@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
+#'@author Amalie Lykkemark Møller \email{amlm@@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
 #'@usage idie_exposed(data, exposure.A=NA, mediator.Z=NA, outcome.Y=NA,
 #'cov.A, cov.Z, cov.Y, SL.lib.A=FALSE, SL.lib.Z=FALSE, SL.lib.Y=FALSE, iterations=10)
 #'@param data  A data frame/data table with a binary exposure, a binary
