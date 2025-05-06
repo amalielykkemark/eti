@@ -11,5 +11,5 @@ Summary function for \code{idie_exposed} a targeted minimum-loss based estimator
 Disparity Indirect Effect (IDIE) among the exposed.
 }
 \author{
-Amalie Lykkemark Moller \email{amalielykkemark@live.dk}
+Amalie Lykkemark M{{/O}}ller \email{amlm@sund.ku.dk}
 }

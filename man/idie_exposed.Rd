@@ -114,5 +114,5 @@ summary(res)
 
 }
 \author{
-Amalie Lykkemark Moller \email{amlm@sund.ku.dk} Helene Charlotte Wiese Rytgaard, Thomas Alexander Gerds, and Christian Torp-Pedersen
+Amalie Lykkemark M{{/O}}ller \email{amlm@sund.ku.dk} and Helene Charlotte Wiese Rytgaard
 }

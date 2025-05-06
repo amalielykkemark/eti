@@ -4,7 +4,7 @@
 #'@name summary.idie_exposed
 #'@rdname summary.idie_exposed
 #'@method summary idie_exposed
-#'@author Amalie Lykkemark M{{\O}}ller \email{amlm@@sund.ku.dk}
+#'@author Amalie Lykkemark M{{/O}}ller \email{amlm@@sund.ku.dk}
 #'@export
 summary.idie_exposed <- function(x,...) {
   if(identical(class(x), "idie_exposed")){

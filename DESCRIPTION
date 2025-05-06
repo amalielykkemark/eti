@@ -2,15 +2,12 @@ Package: eti
 Title: Estimating Targeted Interventions
 Version: 1.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Amalie Lykkemark", "M{{/o}}ller", , "amlm@sund.ku.dk", role = c("aut", "cre"))
 Description: Package for evaluating the impact of targeted interventions
     using targeted minimum loss-based estimation
 License: MIT + file LICENSE
-Depends: 
-    data.table,
-    SuperLearner
-Authors: Amalie Lykkemark Møller <amlm@sund.ku.dk> [aut, cre]
+Depends: data.table, SuperLearner
+Authors: Amalie Lykkemark Møller <amlm@sund.ku.dk> [aut, cre] Helene Charlotte Wiese Rytgaard <hely@sund.ku.dk> [aut]
 Encoding: UTF-8
 Language: es
 Roxygen: list(markdown = TRUE)

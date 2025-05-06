@@ -2,7 +2,7 @@
 #'@description Print function for \code{idie_exposed} a targeted minimum-loss based estimator for the Interventional
 #'Disparity Indirect Effect (IDIE) among the exposed.
 #'@name print.idie_exposed
-#'@author Amalie Lykkemark M{{\O}}ller \email{amlm@@sund.ku.dk}
+#'@author Amalie Lykkemark M{{/O}}ller \email{amlm@@sund.ku.dk}
 #'@rdname print.idie_exposed
 #'@method print idie_exposed
 #'@export
